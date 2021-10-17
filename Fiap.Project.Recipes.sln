@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Web", "Fiap.Projeto.Receitas.Web\Fiap.Project.Recipes.Web.csproj", "{1D4CFA5C-5D07-4938-90AE-B20398FB8C8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Structure", "Fiap.Projeto.Receitas.Structure\Fiap.Project.Recipes.Structure.csproj", "{C332F9A5-2232-473B-8473-0F599918B275}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D4CFA5C-5D07-4938-90AE-B20398FB8C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D4CFA5C-5D07-4938-90AE-B20398FB8C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D4CFA5C-5D07-4938-90AE-B20398FB8C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D4CFA5C-5D07-4938-90AE-B20398FB8C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C332F9A5-2232-473B-8473-0F599918B275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C332F9A5-2232-473B-8473-0F599918B275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C332F9A5-2232-473B-8473-0F599918B275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C332F9A5-2232-473B-8473-0F599918B275}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {064686B5-2EC2-46E8-B134-42945ADBCE3B}
+	EndGlobalSection
+EndGlobal
