@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31808.319
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Web", "Fiap.Projeto.Receitas.Web\Fiap.Project.Recipes.Web.csproj", "{1D4CFA5C-5D07-4938-90AE-B20398FB8C8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Project.Recipes.Web", "Fiap.Projeto.Receitas.Web\Fiap.Project.Recipes.Web.csproj", "{1D4CFA5C-5D07-4938-90AE-B20398FB8C8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Structure", "Fiap.Projeto.Receitas.Structure\Fiap.Project.Recipes.Structure.csproj", "{C332F9A5-2232-473B-8473-0F599918B275}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Project.Recipes.Structure", "Fiap.Projeto.Receitas.Structure\Fiap.Project.Recipes.Structure.csproj", "{C332F9A5-2232-473B-8473-0F599918B275}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Domain", "Fiap.Project.Recipes.Domain\Fiap.Project.Recipes.Domain.csproj", "{95765452-CBC0-4A3B-ABDE-3B00BB8D7AC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Application", "Fiap.Project.Recipes.Application\Fiap.Project.Recipes.Application.csproj", "{92D495B8-09E6-486C-A0F1-BE7279215145}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Persistence", "Fiap.Project.Recipes.Persistence\Fiap.Project.Recipes.Persistence.csproj", "{E1451022-135E-46AE-A715-16D52D44441F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{C332F9A5-2232-473B-8473-0F599918B275}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C332F9A5-2232-473B-8473-0F599918B275}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C332F9A5-2232-473B-8473-0F599918B275}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95765452-CBC0-4A3B-ABDE-3B00BB8D7AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95765452-CBC0-4A3B-ABDE-3B00BB8D7AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95765452-CBC0-4A3B-ABDE-3B00BB8D7AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95765452-CBC0-4A3B-ABDE-3B00BB8D7AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D495B8-09E6-486C-A0F1-BE7279215145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D495B8-09E6-486C-A0F1-BE7279215145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D495B8-09E6-486C-A0F1-BE7279215145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D495B8-09E6-486C-A0F1-BE7279215145}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1451022-135E-46AE-A715-16D52D44441F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1451022-135E-46AE-A715-16D52D44441F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1451022-135E-46AE-A715-16D52D44441F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1451022-135E-46AE-A715-16D52D44441F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
