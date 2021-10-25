@@ -9,7 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Fiap.Project.Recipes.Application\Fiap.Project.Recipes.Application.csproj" />
+    <ProjectReference Include="..\Fiap.Project.Recipes.Domain\Fiap.Project.Recipes.Domain.csproj" />
+    <ProjectReference Include="..\Fiap.Project.Recipes.Persistence\Fiap.Project.Recipes.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
