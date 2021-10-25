@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Fiap.Project.Recipes.Application\Fiap.Project.Recipes.Application.csproj" />
     <ProjectReference Include="..\Fiap.Project.Recipes.Domain\Fiap.Project.Recipes.Domain.csproj" />
   </ItemGroup>
 

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Fiap.Project.Recipes.Application.Interfaces
 {
-    public interface ICategoriaService
+    public interface ICategoriaRepository
     {
-        void Incluir(Categoria categoria);
+        void Incluir();
+        void Excluir();
         Categoria Obter(int id);
-        void Atualizar(Categoria categoria);
-        void Excluir(int id);
+        void Atualizar();
     }
 }
