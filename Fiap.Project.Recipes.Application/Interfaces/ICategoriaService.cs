@@ -13,5 +13,6 @@ namespace Fiap.Project.Recipes.Application.Interfaces
         Categoria Obter(int id);
         void Atualizar(Categoria categoria);
         void Excluir(int id);
+        IEnumerable<Categoria> Listar();
     }
 }

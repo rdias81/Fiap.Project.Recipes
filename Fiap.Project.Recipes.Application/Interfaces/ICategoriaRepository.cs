@@ -9,9 +9,10 @@ namespace Fiap.Project.Recipes.Application.Interfaces
 {
     public interface ICategoriaRepository
     {
-        void Incluir();
-        void Excluir();
+        void Incluir(Categoria categoria);
+        void Excluir(int id);
         Categoria Obter(int id);
-        void Atualizar();
+        void Atualizar(Categoria categoria);
+        IEnumerable<Categoria> Listar();
     }
 }
