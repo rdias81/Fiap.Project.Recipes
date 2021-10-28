@@ -11,32 +11,44 @@ namespace Fiap.Project.Recipes.Persistence.Repositories
 {
     public class CategoriaRepository : ICategoriaRepository
     {
-        private readonly CategoriaDataContext _categoriaRepository;
+        private readonly SqlDataContext _dataContext;
 
-        public CategoriaRepository()
+        public CategoriaRepository(SqlDataContext context)
         {
-            //_categoriaRepository = new CategoriaDataContext();
+            _dataContext = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public void Atualizar()
+        public void Atualizar(Categoria categoria)
         {
-            throw new NotImplementedException();
+            _dataContext.Entry(categoria).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _dataContext.SaveChanges();
         }
 
-        public void Excluir()
+        public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            var categoria = _dataContext.Categorias.Find(id);
+
+            if (categoria != null)
+            {
+                _dataContext.Categorias.Remove(categoria);
+                _dataContext.SaveChanges();
+            }
         }
 
-        public void Incluir()
+        public void Incluir(Categoria categoria)
         {
-            throw new NotImplementedException();
+            _dataContext.Categorias.Add(categoria);
+            _dataContext.SaveChanges();
         }
 
         public Categoria Obter(int id)
         {
-            return _categoriaRepository.Categorias.FirstOrDefault(m => m.Id == id);
+            return _dataContext.Categorias.FirstOrDefault(m => m.Id == id);
         }
 
+        public IEnumerable<Categoria> Listar()
+        {
+            return _dataContext.Categorias.ToList();
+        }
     }
 }

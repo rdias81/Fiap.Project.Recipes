@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Fiap.Project.Recipes.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoriaController : Controller
     {
         private readonly ICategoriaService _categoriaService;
@@ -16,22 +18,62 @@ namespace Fiap.Project.Recipes.Api.Controllers
         {
             _categoriaService = service;
         }
-
-        public async Task<IActionResult> Obter(int? id)
+        
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<Categoria> Obter(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var categoria = _categoriaService.Obter(id.Value);
 
             if (categoria == null)
-            {
                 return NotFound();
+
+            return categoria;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Categoria>> Listar()
+        {
+            return Ok(_categoriaService.Listar().ToList());
+        }
+
+        [HttpPost]
+        public ActionResult<Categoria> Incluir([FromBody]Categoria categoria)
+        {
+            if (categoria == null)
+                return BadRequest();
+
+            _categoriaService.Incluir(categoria);
+
+            return Created($"/api/categoria/{categoria.Id}", categoria);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var catagoria = _categoriaService.Obter(id);
+
+            if (catagoria == null)
+                return NotFound();
+            
+            _categoriaService.Excluir(id);
+            return NoContent();
+        }
+
+        [HttpPut]
+        public ActionResult<Categoria> Atualizar(Categoria categoria)
+        {
+            if (ModelState.IsValid)
+            {
+                _categoriaService.Atualizar(categoria);
+                return Ok(categoria);
             }
 
-            return (IActionResult)categoria;
+            return BadRequest(ModelState);
         }
     }
 }
