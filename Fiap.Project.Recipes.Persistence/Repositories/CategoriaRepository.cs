@@ -11,11 +11,11 @@ namespace Fiap.Project.Recipes.Persistence.Repositories
 {
     public class CategoriaRepository : ICategoriaRepository
     {
-        private readonly CategoriaDataContext _categoriaRepository;
+        private readonly SqlDataContext _categoriaContext;
 
-        public CategoriaRepository()
+        public CategoriaRepository(SqlDataContext context)
         {
-            //_categoriaRepository = new CategoriaDataContext();
+            _categoriaContext = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public void Atualizar()
@@ -35,7 +35,7 @@ namespace Fiap.Project.Recipes.Persistence.Repositories
 
         public Categoria Obter(int id)
         {
-            return _categoriaRepository.Categorias.FirstOrDefault(m => m.Id == id);
+            return _categoriaContext.Categorias.FirstOrDefault(m => m.Id == id);
         }
 
     }

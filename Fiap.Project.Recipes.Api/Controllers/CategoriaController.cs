@@ -16,8 +16,9 @@ namespace Fiap.Project.Recipes.Api.Controllers
         {
             _categoriaService = service;
         }
-
-        public async Task<IActionResult> Obter(int? id)
+        
+        [HttpGet("Obter")]
+        public ActionResult<Categoria> Obter(int? id)
         {
             if (id == null)
             {
@@ -31,7 +32,7 @@ namespace Fiap.Project.Recipes.Api.Controllers
                 return NotFound();
             }
 
-            return (IActionResult)categoria;
+            return categoria;
         }
     }
 }
