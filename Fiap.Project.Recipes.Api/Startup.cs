@@ -1,3 +1,5 @@
+using Fiap.Project.Recipes.Api.Helpers;
+using Fiap.Project.Recipes.Api.Middleware;
 using Fiap.Project.Recipes.Application.Interfaces;
 using Fiap.Project.Recipes.Application.Services;
 using Fiap.Project.Recipes.Persistence.Contexts;
@@ -42,6 +44,12 @@ namespace Fiap.Project.Recipes.Api
             services.AddScoped<ICategoriaService, CategoriaService>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // configure DI for application services
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
             services.AddDbContext<CategoriaDataContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=fiapMasterChef;Integrated Security=True;Connect Timeout=30;"));
 
         }
@@ -60,8 +68,8 @@ namespace Fiap.Project.Recipes.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
+            app.UseAuthorization();           
+            app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

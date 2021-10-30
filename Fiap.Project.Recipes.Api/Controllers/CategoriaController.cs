@@ -1,14 +1,14 @@
-﻿using Fiap.Project.Recipes.Application.Interfaces;
-using Fiap.Project.Recipes.Domain.Models;
+﻿using Fiap.Project.Recipes.Api.Helpers;
+using Fiap.Project.Recipes.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Fiap.Project.Recipes.Api.Controllers
 {
-    public class CategoriaController : Controller
+    
+    [ApiController]
+    [Route("api/[controller]")]
+    public class CategoriaController : ControllerBase
     {
         private readonly ICategoriaService _categoriaService;
 
@@ -17,6 +17,8 @@ namespace Fiap.Project.Recipes.Api.Controllers
             _categoriaService = service;
         }
 
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Obter(int? id)
         {
             if (id == null)

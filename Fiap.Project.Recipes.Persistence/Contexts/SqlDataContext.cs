@@ -12,11 +12,10 @@ namespace Fiap.Project.Recipes.Persistence.Contexts
     {
         public SqlDataContext(DbContextOptions<SqlDataContext> options) : base(options)
         {
-
         }
-
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Receita> Receitas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
     }
 }
