@@ -20,22 +20,27 @@ namespace Fiap.Project.Recipes.Application.Services
 
         public void Atualizar(Categoria categoria)
         {
-            throw new NotImplementedException();
+            _repository.Atualizar(categoria);
         }
 
         public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            _repository.Excluir(id);
         }
 
         public void Incluir(Categoria categoria)
         {
-            throw new NotImplementedException();
+            _repository.Incluir(categoria);
         }
 
         public Categoria Obter(int id)
         {
             return _repository.Obter(id);
+        }
+
+        public IEnumerable<Categoria> Listar()
+        {
+            return _repository.Listar();
         }
     }
 }
