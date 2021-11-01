@@ -4,14 +4,16 @@ using Fiap.Project.Recipes.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fiap.Project.Recipes.Persistence.Migrations
 {
     [DbContext(typeof(SqlDataContext))]
-    partial class SqlDataContextModelSnapshot : ModelSnapshot
+    [Migration("20211031191430_InitialSeed")]
+    partial class InitialSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

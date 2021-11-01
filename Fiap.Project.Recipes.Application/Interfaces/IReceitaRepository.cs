@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Fiap.Project.Recipes.Application.Interfaces
 {
-    public interface IReceitaService
+    public interface IReceitaRepository
     {
-        IEnumerable<Receita> Listar();
         void Incluir(Receita receita);
+        void Excluir(int id);
         Receita Obter(int id);
         void Atualizar(Receita receita);
-        void Excluir(int id);
+        IEnumerable<Receita> Listar();
     }
 }
