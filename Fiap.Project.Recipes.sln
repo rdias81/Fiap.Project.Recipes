@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Project.Recipes.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Project.Recipes.Persistence", "Fiap.Project.Recipes.Persistence\Fiap.Project.Recipes.Persistence.csproj", "{E1451022-135E-46AE-A715-16D52D44441F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Api", "Fiap.Project.Recipes.Api\Fiap.Project.Recipes.Api.csproj", "{87E7EEE0-DF5B-4438-AAA8-EB0D7A34F32E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Project.Recipes.Api", "Fiap.Project.Recipes.Api\Fiap.Project.Recipes.Api.csproj", "{87E7EEE0-DF5B-4438-AAA8-EB0D7A34F32E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Project.Recipes.Web", "Fiap.Project.Recipes.Web\Fiap.Project.Recipes.Web.csproj", "{C7535D5F-24FF-4CC7-8E55-4159D4C73595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Project.Recipes.Web", "Fiap.Project.Recipes.Web\Fiap.Project.Recipes.Web.csproj", "{C7535D5F-24FF-4CC7-8E55-4159D4C73595}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
