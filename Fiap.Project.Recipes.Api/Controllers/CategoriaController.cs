@@ -18,7 +18,9 @@ namespace Fiap.Project.Recipes.Api.Controllers
         {
             _categoriaService = service;
         }
-        
+
+
+        [Authorize]
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Categoria> Obter(int? id)
@@ -34,12 +36,16 @@ namespace Fiap.Project.Recipes.Api.Controllers
             return categoria;
         }
 
+
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<Categoria>> Listar()
         {
             return Ok(_categoriaService.Listar().ToList());
         }
 
+
+        [Authorize]
         [HttpPost]
         public ActionResult<Categoria> Incluir([FromBody]Categoria categoria)
         {
@@ -51,6 +57,8 @@ namespace Fiap.Project.Recipes.Api.Controllers
             return Created($"/api/categoria/{categoria.Id}", categoria);
         }
 
+
+        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         public ActionResult Delete(int id)
@@ -64,6 +72,8 @@ namespace Fiap.Project.Recipes.Api.Controllers
             return NoContent();
         }
 
+
+        [Authorize]
         [HttpPut]
         public ActionResult<Categoria> Atualizar(Categoria categoria)
         {

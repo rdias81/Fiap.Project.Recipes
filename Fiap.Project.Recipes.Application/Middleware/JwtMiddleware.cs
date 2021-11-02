@@ -14,16 +14,12 @@ namespace Fiap.Project.Recipes.Application.Middleware
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        //private readonly AppSettings _appSettings;
         private readonly IConfiguration _appSettings;
-
         public JwtMiddleware(RequestDelegate next, IConfiguration appSettings)
         {
             _next = next;
             _appSettings = appSettings;
         }
-
-
         public async Task Invoke(HttpContext context, IUsuarioService userService)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
@@ -33,14 +29,12 @@ namespace Fiap.Project.Recipes.Application.Middleware
 
             await _next(context);
         }
-
         private void attachUserToContext(HttpContext context, IUsuarioService userService, string token)
         {
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var secret = _appSettings["AppSettings:Secret"];
-                //var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
                 var key = Encoding.ASCII.GetBytes(secret);
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
@@ -54,17 +48,12 @@ namespace Fiap.Project.Recipes.Application.Middleware
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
-                // attach user to context on successful jwt validation
                 context.Items["Usuario"] = userService.Obter(userId);
             }
             catch
             {
-                // do nothing if jwt validation fails
-                // user is not attached to context so request won't have access to secure routes
             }
         }
-
 
     }
 }

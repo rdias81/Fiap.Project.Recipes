@@ -1,4 +1,5 @@
-﻿using Fiap.Project.Recipes.Application.Interfaces;
+﻿using Fiap.Project.Recipes.Api.Helpers;
+using Fiap.Project.Recipes.Application.Interfaces;
 using Fiap.Project.Recipes.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,7 +11,7 @@ namespace Fiap.Project.Recipes.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ReceitaController : Controller
+    public class ReceitaController : ControllerBase
     {
 
         private readonly IReceitaService _receitaService;
@@ -20,6 +21,7 @@ namespace Fiap.Project.Recipes.Api.Controllers
             _receitaService = service;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Receita> Obter(int? id)
@@ -35,12 +37,14 @@ namespace Fiap.Project.Recipes.Api.Controllers
             return receita;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<Receita>> Listar()
         {
             return Ok(_receitaService.Listar().ToList());
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<Categoria> Incluir([FromBody] Receita receita)
         {
@@ -52,6 +56,7 @@ namespace Fiap.Project.Recipes.Api.Controllers
             return Created($"/api/receita/{receita.Id}", receita);
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         public ActionResult Delete(int id)
@@ -65,6 +70,7 @@ namespace Fiap.Project.Recipes.Api.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPut]
         public ActionResult<Receita> Atualizar(Receita receita)
         {
