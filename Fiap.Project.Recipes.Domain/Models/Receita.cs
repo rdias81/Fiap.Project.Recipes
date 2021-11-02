@@ -15,7 +15,8 @@ namespace Fiap.Project.Recipes.Domain.Models
         public string Preparo { get; set; }
         public string Imagem { get; set; }
         public string Tags { get; set; }
-        public Categoria CategoriaReceita { get; set; }
+        public int CategoriaId { get; set; }
+        public virtual Categoria CategoriaReceita { get; set; }
         public DateTime DataInclusao { get; set; }
 
     }

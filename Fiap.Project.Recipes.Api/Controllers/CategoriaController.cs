@@ -1,13 +1,16 @@
 ﻿using Fiap.Project.Recipes.Api.Helpers;
 using Fiap.Project.Recipes.Application.Interfaces;
+using Fiap.Project.Recipes.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Fiap.Project.Recipes.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : Controller
+    public class CategoriaController : ControllerBase
     {
         private readonly ICategoriaService _categoriaService;
 

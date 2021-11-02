@@ -1,5 +1,6 @@
 ﻿using Fiap.Project.Recipes.Api.Helpers;
 using Fiap.Project.Recipes.Api.Model;
+using Fiap.Project.Recipes.Api.Validator;
 using Fiap.Project.Recipes.Application.Interfaces;
 using Fiap.Project.Recipes.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -18,27 +19,27 @@ namespace Fiap.Project.Recipes.Api.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
-        private readonly AppSettings _appSettings;
-        public UsuariosController(IOptions<AppSettings> appSettings, IUsuarioService usuarioService)
+
+        public UsuariosController(IUsuarioService usuarioService)
         {
-            _appSettings = appSettings.Value;
+
             _usuarioService = usuarioService;
         }
 
 
         [HttpPost("authenticate")]
-        public AuthenticateResponse Authenticate([FromBody] AuthenticateRequest model)
+        public IActionResult Authenticate([FromBody] AuthenticateRequest model)
         {
+            var validator = new AuthenticateRequestValidator();
+            var result = validator.Validate(model);
+            if (!result.IsValid)
+                return new BadRequestObjectResult(result.Errors);
 
             var user = _usuarioService.Login(model.Login, model.Senha);
-
             // return null if user not found
             if (user == null) return null;
-
-            // authentication successful so generate jwt token
-            var token = generateJwtToken(user);
-
-            return new AuthenticateResponse(user, token);
+            var token = _usuarioService.GenerateJwtToken(user);
+            return Ok(new AuthenticateResponse(user, token));
         }
 
         [Authorize]
@@ -49,31 +50,25 @@ namespace Fiap.Project.Recipes.Api.Controllers
             return Ok(users);
         }
 
-        [NonAction]
-        private string generateJwtToken(Usuario user)
+        [Authorize]
+        [HttpPost("Criar")]
+        public IActionResult Criar(Usuario usuario) 
         {
-            try
-            {
-                // generate token that is valid for 7 days
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()),
-                                                 new Claim(ClaimTypes.Name, user.Nome.ToString()),
-                                                 new Claim(ClaimTypes.Role, user.Role.ToString())}),
-                    Expires = DateTime.UtcNow.AddMinutes(20),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                return tokenHandler.WriteToken(token);
-            }
-            catch (Exception ex)
-            {
+            var validator = new UsuarioValidator();
+            var result = validator.Validate(usuario);
+            if (!result.IsValid)
+                return new BadRequestObjectResult(result.Errors);
 
-                throw;
-            }
+            var userId = _usuarioService.SalvarUsuario(usuario);
+            return Ok($"Usuarioid {userId} criado com sucesso.");
         }
+
+
+        //[NonAction]
+        //private string generateJwtToken(Usuario user)
+        //{
+
+        //}
 
 
 

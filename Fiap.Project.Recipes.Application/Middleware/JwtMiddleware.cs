@@ -1,26 +1,26 @@
-﻿using Fiap.Project.Recipes.Api.Helpers;
-using Fiap.Project.Recipes.Application.Interfaces;
+﻿using Fiap.Project.Recipes.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fiap.Project.Recipes.Api.Middleware
+namespace Fiap.Project.Recipes.Application.Middleware
 {
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly AppSettings _appSettings;
+        //private readonly AppSettings _appSettings;
+        private readonly IConfiguration _appSettings;
 
-        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings)
+        public JwtMiddleware(RequestDelegate next, IConfiguration appSettings)
         {
             _next = next;
-            _appSettings = appSettings.Value;
+            _appSettings = appSettings;
         }
 
 
@@ -39,7 +39,9 @@ namespace Fiap.Project.Recipes.Api.Middleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var secret = _appSettings["AppSettings:Secret"];
+                //var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var key = Encoding.ASCII.GetBytes(secret);
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
