@@ -46,6 +46,9 @@ namespace Fiap.Project.Recipes.Api
             services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(conSqlServer));
 
             //services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=fiapMasterChef;Integrated Security=True;Connect Timeout=30;"));
+            services.AddScoped<IReceitaService, ReceitaService>();
+            services.AddScoped<IReceitaRepository, ReceitaRepository>();
+            services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=fiapMasterChef;Integrated Security=True;Connect Timeout=30;"));
 
         }
 
