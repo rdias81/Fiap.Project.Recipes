@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Fiap.Project.Recipes.Persistence\Fiap.Project.Recipes.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
+
 </Project>
