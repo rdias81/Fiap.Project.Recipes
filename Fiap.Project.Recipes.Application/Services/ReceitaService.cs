@@ -41,5 +41,10 @@ namespace Fiap.Project.Recipes.Application.Services
         {
             return _repository.Obter(id);
         }
+
+        public IEnumerable<Receita> Listar(int categoria)
+        {
+            return _repository.Listar(categoria);
+        }
     }
 }

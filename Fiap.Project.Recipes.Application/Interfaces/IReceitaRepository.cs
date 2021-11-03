@@ -14,5 +14,6 @@ namespace Fiap.Project.Recipes.Application.Interfaces
         Receita Obter(int id);
         void Atualizar(Receita receita);
         IEnumerable<Receita> Listar();
+        IEnumerable<Receita> Listar(int categoria);
     }
 }
