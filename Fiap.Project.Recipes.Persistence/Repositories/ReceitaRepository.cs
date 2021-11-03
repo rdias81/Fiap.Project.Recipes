@@ -52,5 +52,13 @@ namespace Fiap.Project.Recipes.Persistence.Repositories
             _dataContext.Entry(receita).Reference(r => r.CategoriaReceita).Load();
             return receita;
         }
+
+        public IEnumerable<Receita> Listar(int categoria)
+        {
+            return _dataContext.Receitas
+                .Where(receita => receita.CategoriaId == categoria)
+                .ToList();
+        }
+
     }
 }

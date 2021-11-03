@@ -45,6 +45,19 @@ namespace Fiap.Project.Recipes.Api.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        [Route("/api/Receita/PorCategoria/{categoria}")]
+        public ActionResult<IEnumerable<Receita>> Listar(int categoria)
+        {
+            var receitas = _receitaService.Listar(categoria).ToList();
+
+            if (receitas?.Count > 0)
+                return Ok(receitas);
+
+            return NotFound();
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult<Categoria> Incluir([FromBody] Receita receita)
         {
