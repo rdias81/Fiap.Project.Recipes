@@ -10,11 +10,11 @@ namespace Fiap.Project.Recipes.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class CategoriasController : ControllerBase
     {
         private readonly ICategoriaService _categoriaService;
 
-        public CategoriaController(ICategoriaService service)
+        public CategoriasController(ICategoriaService service)
         {
             _categoriaService = service;
         }

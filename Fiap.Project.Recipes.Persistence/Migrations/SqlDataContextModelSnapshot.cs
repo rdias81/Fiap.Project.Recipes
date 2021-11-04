@@ -24,8 +24,6 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descricao")
@@ -77,8 +75,6 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoriaId")
@@ -119,7 +115,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 1,
                             CategoriaId = 1,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 885, DateTimeKind.Local).AddTicks(4082),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 198, DateTimeKind.Local).AddTicks(8411),
                             Descricao = "Deliciosos cookies",
                             Ingredientes = "ingredientes do cookie",
                             Preparo = "preparo do cookie",
@@ -130,7 +126,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 2,
                             CategoriaId = 1,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7821),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5574),
                             Descricao = "famoso pudim",
                             Ingredientes = "ingrdientes do pudim",
                             Preparo = "preparo do pudim",
@@ -141,7 +137,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 3,
                             CategoriaId = 2,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7843),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5587),
                             Descricao = "irresistível bolo de chocolate",
                             Ingredientes = "ingredientes do bolo",
                             Preparo = "preparo do bolo",
@@ -152,7 +148,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 4,
                             CategoriaId = 2,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7846),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5589),
                             Descricao = "deliciosa torta",
                             Ingredientes = "ingredientes da torta",
                             Preparo = "preparo da torta",
@@ -163,7 +159,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 5,
                             CategoriaId = 3,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7849),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5590),
                             Descricao = "Massa clássica",
                             Ingredientes = "ingredientes do carbonara",
                             Preparo = "preparo do carbonara",
@@ -174,7 +170,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 6,
                             CategoriaId = 3,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7852),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5592),
                             Descricao = "almoço de domingo",
                             Ingredientes = "ingredientes da lasanha",
                             Preparo = "preparo da lasanha",
@@ -185,7 +181,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 7,
                             CategoriaId = 4,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7854),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5593),
                             Descricao = "delicioso",
                             Ingredientes = "ingredientes do bolode carne",
                             Preparo = "preparo do bolo de carne",
@@ -196,7 +192,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 8,
                             CategoriaId = 4,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7857),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5595),
                             Descricao = "tradicional carne de panela",
                             Ingredientes = "ingredientes de carne de panela",
                             Preparo = "preparo de carne de panela",
@@ -207,7 +203,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 9,
                             CategoriaId = 5,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7925),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5597),
                             Descricao = "Strogonoff de frango fácil",
                             Ingredientes = "ingredientes de strogonoff de frango",
                             Preparo = "preparo de strogonoff de frango",
@@ -218,7 +214,7 @@ namespace Fiap.Project.Recipes.Persistence.Migrations
                         {
                             Id = 10,
                             CategoriaId = 5,
-                            DataInclusao = new DateTime(2021, 10, 30, 11, 34, 47, 886, DateTimeKind.Local).AddTicks(7929),
+                            DataInclusao = new DateTime(2021, 11, 3, 21, 41, 3, 199, DateTimeKind.Local).AddTicks(5598),
                             Descricao = "Medalhão de frango com bacon irresistível",
                             Ingredientes = "ingredientes de Medalhão de frango com bacon",
                             Preparo = "preparo de Medalhão de frango com bacon",

@@ -6,11 +6,13 @@ using Fiap.Project.Recipes.Persistence.Contexts;
 using Fiap.Project.Recipes.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Fiap.Project.Recipes.Api
 {
@@ -26,29 +28,64 @@ namespace Fiap.Project.Recipes.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=fiapMasterChef;Integrated Security=True;Connect Timeout=30;"));
+            services.AddCors(x =>
+            {
+                x.AddPolicy("Default",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod(); ;
+                });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fiap.Project.Recipes.Api", Version = "v1" });
-            });
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Coloque SOMENTE O TOKEN no campo abaixo.",
 
-            services.AddScoped<ICategoriaService, CategoriaService>();
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-            //services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+                    Reference = new OpenApiReference
+                    {
+                        Id = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecurityScheme, System.Array.Empty<string>() }
+                });
+
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
+            });
 
             // configure DI for application services
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IReceitaService, ReceitaService>();
             services.AddScoped<IReceitaRepository, ReceitaRepository>();
+            services.AddScoped<ICategoriaService, CategoriaService>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
             var conSqlServer = Configuration["ConnectionStringSql"];
             services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(conSqlServer));
             //services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=fiapMasterChef;Integrated Security=True;Connect Timeout=30;"));
-            //services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=fiapMasterChef;Integrated Security=True;Connect Timeout=30;"));
+
+            services.Configure<GzipCompressionProviderOptions>(o => o.Level = System.IO.Compression.CompressionLevel.Optimal);
+            services.AddResponseCompression(o =>
+            {
+                o.Providers.Add<GzipCompressionProvider>();
+            });
 
         }
 
@@ -63,15 +100,17 @@ namespace Fiap.Project.Recipes.Api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("Default");
             app.UseRouting();
-
-            app.UseAuthorization();           
+            app.UseResponseCompression();
+            app.UseAuthorization();
             app.UseMiddleware<JwtMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
