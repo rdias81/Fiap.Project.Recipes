@@ -11,12 +11,12 @@ namespace Fiap.Project.Recipes.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ReceitaController : ControllerBase
+    public class ReceitasController : ControllerBase
     {
 
         private readonly IReceitaService _receitaService;
 
-        public ReceitaController(IReceitaService service)
+        public ReceitasController(IReceitaService service)
         {
             _receitaService = service;
         }
@@ -46,7 +46,7 @@ namespace Fiap.Project.Recipes.Api.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("/api/Receita/PorCategoria/{categoria}")]
+        [Route("PorCategoria/{categoria}")]
         public ActionResult<IEnumerable<Receita>> Listar(int categoria)
         {
             var receitas = _receitaService.Listar(categoria).ToList();
