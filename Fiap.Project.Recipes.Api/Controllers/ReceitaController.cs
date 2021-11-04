@@ -11,12 +11,12 @@ namespace Fiap.Project.Recipes.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ReceitasController : ControllerBase
+    public class ReceitaController : ControllerBase
     {
 
         private readonly IReceitaService _receitaService;
 
-        public ReceitasController(IReceitaService service)
+        public ReceitaController(IReceitaService service)
         {
             _receitaService = service;
         }
