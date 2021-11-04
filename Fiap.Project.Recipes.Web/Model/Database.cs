@@ -19,7 +19,7 @@ namespace Fiap.Project.Recipes.Web.Model
 
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Receita> Receitas { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
+        
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,12 +42,46 @@ namespace Fiap.Project.Recipes.Web.Model
                 .Property(x => x.Descricao)
                 .HasMaxLength(50)
                 .IsRequired();
-        
-        
-        
-        
-        
-        
+
+
+
+
+            modelBuilder.Entity<Receita>()
+             .ToTable("Receita");
+
+            modelBuilder.Entity<Receita>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Receita>()
+                .Property(x => x.Titulo)
+                .IsRequired();
+
+            modelBuilder.Entity<Receita>()
+                .Property(x => x.Descricao)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            modelBuilder.Entity<Receita>()
+           .Property(x => x.Titulo)
+           .HasMaxLength(50)
+           .IsRequired();
+
+            modelBuilder.Entity<Receita>()
+           .Property(x => x.Preparo)
+           .HasMaxLength(50)
+           .IsRequired();
+
+            modelBuilder.Entity<Receita>()
+          .Property(x => x.Imagem)          
+          .IsRequired();
+
+            modelBuilder.Entity<Receita>()
+          .Property(x => x.CategoriaId);
+         
+
+
+
+
         }
 
 
