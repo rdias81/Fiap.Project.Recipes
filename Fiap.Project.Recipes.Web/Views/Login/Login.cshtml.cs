@@ -48,8 +48,9 @@ namespace Fiap.Project.Recipes.Web.Views.Login
                     {
                         using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
                         var autheticationResponse = await JsonSerializer.DeserializeAsync<AuthenticateResponse>(responseStream);
-                        await SignInUser(autheticationResponse.Nome, true);
-                        return this.RedirectToPage("/Home/Index");
+                        await SignInUser(autheticationResponse, true);
+                      
+                        return this.RedirectToPage("/Home/Index", autheticationResponse);
                     }
                 }
                 return null;
@@ -60,18 +61,26 @@ namespace Fiap.Project.Recipes.Web.Views.Login
         }
 
 
-        private async Task SignInUser(string username, bool isPersistent)
+        private async Task SignInUser(AuthenticateResponse authenticateResponse, bool isPersistent)
         {
             // Initialization.  
             var claims = new List<Claim>();
 
             try
             {
+               
+                   
+                   
+                
                 // Setting  
-                claims.Add(new Claim(ClaimTypes.Name, username));
+                claims.Add(new Claim(ClaimTypes.Name, authenticateResponse.Nome));
+                claims.Add(new Claim("AcessToken", string.Format("{0}", authenticateResponse.Token)));               
                 var claimIdenties = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimPrincipal = new ClaimsPrincipal(claimIdenties);
                 var authenticationManager = Request.HttpContext;
+
+               
+
 
                 // Sign In.  
                 await authenticationManager.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal, new AuthenticationProperties() { IsPersistent = isPersistent });

@@ -21,7 +21,6 @@ namespace Fiap.Project.Recipes.Api.Controllers
             _receitaService = service;
         }
 
-        [Authorize]
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Receita> Obter(int? id)
@@ -37,14 +36,13 @@ namespace Fiap.Project.Recipes.Api.Controllers
             return receita;
         }
 
-        [Authorize]
+     
         [HttpGet]
         public ActionResult<IEnumerable<Receita>> Listar()
         {
             return Ok(_receitaService.Listar().ToList());
         }
 
-        [Authorize]
         [HttpGet]
         [Route("PorCategoria/{categoria}")]
         public ActionResult<IEnumerable<Receita>> Listar(int categoria)

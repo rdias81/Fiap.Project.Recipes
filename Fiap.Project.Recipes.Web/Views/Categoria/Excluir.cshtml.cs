@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -36,19 +38,22 @@ namespace Fiap.Project.Recipes.Web.Views.Categoria
             if (id == null)
             {
                 return NotFound();
-            }
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44320/api/");
-                var categoria = new StringContent(
+                var token = ((ClaimsPrincipal)HttpContext.User.Identity).FindFirst("AcessToken").Value;
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:44320/api/");
+                    client.DefaultRequestHeaders.Authorization =
+                              new AuthenticationHeaderValue("Bearer", token);
+                    var categoria = new StringContent(
                                       JsonSerializer.Serialize(id),
                                       Encoding.UTF8,
                                       "application/json");
-                using var httpResponse =
-                    await client.PostAsync("/receitas/incluir?id", categoria);
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    return RedirectToPage("./Index");
+                    using var httpResponse =
+                        await client.PostAsync("/receitas/incluir?id", categoria);
+                    if (httpResponse.IsSuccessStatusCode)
+                    {
+                        return RedirectToPage("./Index");
+                    }
                 }
             }
 

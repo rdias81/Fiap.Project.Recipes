@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using System.Collections.ObjectModel;
+using System.Security.Claims;
+using System.Threading;
 
 namespace Fiap.Project.Recipes.Web.Helpers
 {
@@ -16,6 +19,6 @@ namespace Fiap.Project.Recipes.Web.Helpers
                 // not logged in
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
-        }
+        }       
     }
 }

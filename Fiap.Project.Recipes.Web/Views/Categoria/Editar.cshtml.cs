@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Fiap.Project.Recipes.Web.Helpers;
 using Fiap.Project.Recipes.Web.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,7 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Fiap.Project.Recipes.Web.Views.Categoria
 {
     public class EditarModel : PageModel
-    {      
+    {
         [BindProperty()]
         public Fiap.Project.Recipes.Domain.Models.Categoria Categoria { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -44,7 +47,7 @@ namespace Fiap.Project.Recipes.Web.Views.Categoria
             return Page();
         }
 
-
+        [Authorize]
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -52,9 +55,12 @@ namespace Fiap.Project.Recipes.Web.Views.Categoria
                 return Page();
             }
 
+            var token = ((ClaimsPrincipal)HttpContext.User.Identity).FindFirst("AcessToken").Value;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44320/api/");
+                client.DefaultRequestHeaders.Authorization =
+                          new AuthenticationHeaderValue("Bearer", token);
                 var categoria = new StringContent(
                                       JsonSerializer.Serialize(Categoria),
                                       Encoding.UTF8,

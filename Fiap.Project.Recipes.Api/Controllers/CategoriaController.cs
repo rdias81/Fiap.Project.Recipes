@@ -20,7 +20,7 @@ namespace Fiap.Project.Recipes.Api.Controllers
         }
 
 
-        [Authorize]
+      
         [HttpGet]
         [Route("{id}")]
         public ActionResult<Categoria> Obter(int? id)
@@ -37,7 +37,7 @@ namespace Fiap.Project.Recipes.Api.Controllers
         }
 
 
-        [Authorize]
+      
         [HttpGet]
         public ActionResult<IEnumerable<Categoria>> Listar()
         {
