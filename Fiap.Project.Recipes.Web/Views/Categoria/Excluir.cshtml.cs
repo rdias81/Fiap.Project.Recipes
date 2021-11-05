@@ -1,23 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fiap.Project.Recipes.Application.Interfaces;
+using Fiap.Project.Recipes.Web.Helpers;
 using Fiap.Project.Recipes.Web.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Fiap.Project.Recipes.Web.Views.Categoria
 {
     public class ExcluirModel : PageModel
     {
-        public readonly Database database;
-
-        public ExcluirModel(Database database)
-        {
-            this.database = database;
-        }
-
+       
         [BindProperty()]
         public Domain.Models.Categoria Categoria { get; set; }
 
@@ -27,9 +22,6 @@ namespace Fiap.Project.Recipes.Web.Views.Categoria
             {
                 return NotFound();
             }
-
-            Categoria = database.Categorias.Find(id.Value);
-
             if (Categoria == null)
             {
                 return NotFound();
@@ -38,22 +30,29 @@ namespace Fiap.Project.Recipes.Web.Views.Categoria
             return Page();
         }
 
-        public IActionResult OnPost(int? id)
+        [Authorize]
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var cr = database.Categorias.Find(id);
-
-            if (cr != null)
+            using (var client = new HttpClient())
             {
-                database.Categorias.Remove(cr);
-                database.SaveChanges();
+                client.BaseAddress = new Uri("https://localhost:44320/api/");
+                var categoria = new StringContent(
+                                      JsonSerializer.Serialize(id),
+                                      Encoding.UTF8,
+                                      "application/json");
+                using var httpResponse =
+                    await client.PostAsync("/receitas/incluir?id", categoria);
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    return RedirectToPage("./Index");
+                }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Error");
         }
     }
 }

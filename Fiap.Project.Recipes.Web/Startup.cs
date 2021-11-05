@@ -24,8 +24,8 @@ namespace Fiap.Project.Recipes.Web
             services.AddRazorPages();
             //services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=fiapMasterChef;Integrated Security=True;Connect Timeout=30;"));
 
-            var conSqlServer = Configuration["ConnectionStringSql"];
-            services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(conSqlServer));
+            //var conSqlServer = Configuration["ConnectionStringSql"];
+            //services.AddDbContext<SqlDataContext>(options => options.UseSqlServer(conSqlServer));
 
         }
 

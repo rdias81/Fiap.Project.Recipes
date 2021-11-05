@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Fiap.Project.Recipes.Web.Helpers;
 using Fiap.Project.Recipes.Web.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,12 +14,7 @@ namespace Fiap.Project.Recipes.Web.Views.Receita
 {
     public class ExcluirModel : PageModel
     {
-        public readonly Database database;
-
-        public ExcluirModel(Database database)
-        {
-            this.database = database;
-        }
+         
 
         [BindProperty()]
         public Domain.Models.Receita Receita { get; set; }
@@ -25,9 +24,7 @@ namespace Fiap.Project.Recipes.Web.Views.Receita
             if (id == null)
             {
                 return NotFound();
-            }
-
-            Receita = database.Receitas.Find(id.Value);
+            }        
 
             if (Receita == null)
             {
@@ -37,19 +34,27 @@ namespace Fiap.Project.Recipes.Web.Views.Receita
             return Page();
         }
 
-        public IActionResult OnPost(int? id)
+        [Authorize]
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var cr = database.Receitas.Find(id);
-
-            if (cr != null)
+            using (var client = new HttpClient())
             {
-                database.Receitas.Remove(cr);
-                database.SaveChanges();
+                client.BaseAddress = new Uri("https://localhost:44320/api/");
+                var receita = new StringContent(
+                                      JsonSerializer.Serialize(Receita),
+                                      Encoding.UTF8,
+                                      "application/json");
+                using var httpResponse =
+                    await client.PostAsync("/receitas/delete", receita);
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    return RedirectToPage("./Index");
+                }
             }
 
             return RedirectToPage("./Index");

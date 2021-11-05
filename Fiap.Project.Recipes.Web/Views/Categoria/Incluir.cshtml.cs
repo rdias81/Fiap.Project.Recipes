@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fiap.Project.Recipes.Web.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Fiap.Project.Recipes.Web.Views.Categoria
 {
     public class IncluirModel : PageModel
-    {
-        public readonly Database database;
-
-        public IncluirModel(Database database)
-        {
-            this.database = database;
-        }
-
+    {      
         public IActionResult OnGet()
         {
             return Page();
@@ -25,17 +18,27 @@ namespace Fiap.Project.Recipes.Web.Views.Categoria
         [BindProperty()]
         public Domain.Models.Categoria Categoria { get; set; }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
-            database.Categorias.Add(Categoria);
-            database.SaveChanges();
-
-            return RedirectToPage("./Index");
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44320/api/");
+                var categoria = new StringContent(
+                                      JsonSerializer.Serialize(Categoria),
+                                      Encoding.UTF8,
+                                      "application/json");
+                using var httpResponse =
+                    await client.PostAsync("/categorias/incluir", categoria);
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    return RedirectToPage("./Index");
+                }
+            }
+            return RedirectToPage("./Erro");
         }
     }
 }

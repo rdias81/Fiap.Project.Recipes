@@ -14,7 +14,7 @@
     <div><label>Descrição:</label></div>
     <p>@Model.Categoria.Descricao</p>
     <form method="post">
-        <input type="hidden" asp-for="Credit.Id" />
+        <input type="hidden" asp-for="Categoria.Id" />
         <button type="submit" onclick="return confirm('Deseja excluir?');">Excluir</button>
     </form>
     <a asp-page="Index"><< Voltar</a>

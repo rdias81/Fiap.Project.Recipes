@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Fiap.Project.Recipes.Web.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +23,20 @@ namespace Fiap.Project.Recipes.Web.Views.Categoria
 
             public IEnumerable<Domain.Models.Categoria> Categorias { get; private set; }
 
-            public void OnGet()
+            public async Task OnGetAsync()
             {
-              Categorias = database.Categorias;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44320/api");
+                using var httpResponse =
+                    await client.GetAsync("/categorias/Listar");
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
+                    Categorias = await JsonSerializer.DeserializeAsync<List<Domain.Models.Categoria>>(responseStream);
+                }
+            }
+            Categorias = database.Categorias;
             }
         
     }

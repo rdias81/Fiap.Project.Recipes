@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Home\" />
+    <None Include="wwwroot\assets\Image\receitas.jpg" />
   </ItemGroup>
 
 </Project>
